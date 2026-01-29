@@ -1,0 +1,61 @@
+{
+  "source_file": "C:\\Users\\aarab\\Desktop\\Desktop\\Projects\\MoLeAd\\data\\dataset\\legal_announcements_normalized_final.json",
+  "total_announcements_source": 483262,
+  "valid_announcements": 483259,
+  "sample_size": 6600,
+  "sample_percentage": 1.3657188026370788,
+  "unique_subjects": 31,
+  "top_10_subjects": [
+    {
+      "subject": "تأسيس شركة ذات المسؤولية المحدودة ذات الشريك الوحيد",
+      "count": 1967,
+      "percentage": 29.803030303030305
+    },
+    {
+      "subject": "تأسيس شركة ذات المسؤولية المحدودة",
+      "count": 1134,
+      "percentage": 17.18181818181818
+    },
+    {
+      "subject": "حل شركة",
+      "count": 743,
+      "percentage": 11.257575757575758
+    },
+    {
+      "subject": "إعلان متعدد القرارات",
+      "count": 424,
+      "percentage": 6.424242424242424
+    },
+    {
+      "subject": "تفويت الحصص الاجتماعية",
+      "count": 422,
+      "percentage": 6.393939393939394
+    },
+    {
+      "subject": "تعديل غير محدد",
+      "count": 405,
+      "percentage": 6.136363636363637
+    },
+    {
+      "subject": "قفل التصفية لشركة مساهمة تدعو الجمهور للاكتتاب",
+      "count": 404,
+      "percentage": 6.121212121212121
+    },
+    {
+      "subject": "تحويل المقر الاجتماعي للشركة",
+      "count": 254,
+      "percentage": 3.848484848484848
+    },
+    {
+      "subject": "رفع رأسمال الشركة",
+      "count": 229,
+      "percentage": 3.4696969696969697
+    },
+    {
+      "subject": "تعيين مسير جديد شخص ذاتي أو اعتباري",
+      "count": 197,
+      "percentage": 2.984848484848485
+    }
+  ],
+  "created_at": "2026-01-29T11:28:55.180196"
+}
