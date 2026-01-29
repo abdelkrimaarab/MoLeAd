@@ -67,6 +67,7 @@ MODIFICATION_CANONICAL = {
     "تقليص هدف الشركة",
     "فسخ عقد تسيير حر لأصل تجاري",
     "تعيين متصرفين",
+    "توسيع نشاط الشركة"
 }
 
 ### Get all canonical subjects
