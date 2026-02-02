@@ -3,6 +3,8 @@ import pandas as pd
 import numpy as np
 import json
 import os
+import shutil
+import zipfile
 from datetime import datetime
 from collections import Counter
 from sklearn.metrics import cohen_kappa_score, precision_score, recall_score, f1_score, classification_report, confusion_matrix
@@ -191,6 +193,53 @@ pages = {
 for page_key, page_name in pages.items():
     if st.sidebar.button(page_name, key=f"btn_{page_key}", use_container_width=True):
         st.session_state.page = page_key
+
+st.sidebar.markdown("---")
+st.sidebar.markdown("### 💾 Sauvegarde & Restauration")
+
+# 1. Télécharger Backup
+if os.path.exists(WORK_DIR):
+    # Créer le zip temporaire
+    shutil.make_archive(os.path.join(RESULTS_DIR, "temp_backup"), 'zip', WORK_DIR)
+    
+    with open(os.path.join(RESULTS_DIR, "temp_backup.zip"), "rb") as f:
+        st.sidebar.download_button(
+            label="⬇️ Télécharger Backup (.zip)",
+            data=f,
+            file_name=f"molead_backup_{datetime.now().strftime('%Y%m%d_%H%M')}.zip",
+            mime="application/zip",
+            help="Téléchargez une copie complète de vos annotations en cours pour les sauvegarder en local."
+        )
+
+# 2. Restaurer Backup
+uploaded_backup = st.sidebar.file_uploader("Restaurer un Backup", type="zip", help="Attention: Ceci écrasera les données actuelles")
+
+if uploaded_backup is not None:
+    if st.sidebar.button("⚠️ Confirmer la Restauration", type="primary"):
+        try:
+            # Sauvegarder le zip uploadé temporairement
+            temp_zip_path = os.path.join(RESULTS_DIR, "uploaded_restore.zip")
+            with open(temp_zip_path, "wb") as f:
+                f.write(uploaded_backup.getbuffer())
+            
+            # Vérifier si c'est un zip valide
+            if zipfile.is_zipfile(temp_zip_path):
+                # Vider le dossier WIP actuel par sécurité (ou juste écraser)
+                # On choisit d'écraser/fusionner
+                with zipfile.ZipFile(temp_zip_path, 'r') as zip_ref:
+                    zip_ref.extractall(WORK_DIR)
+                
+                st.sidebar.success("✅ Restauration réussie!")
+                # Forcer le rechargement des positions et données
+                st.session_state.annotator_a_data = None
+                st.session_state.annotator_b_data = None
+                st.session_state.current_idx_a = None
+                st.session_state.current_idx_b = None
+                st.rerun()
+            else:
+                st.sidebar.error("Le fichier n'est pas un ZIP valide.")
+        except Exception as e:
+            st.sidebar.error(f"Erreur lors de la restauration: {e}")
 
 st.sidebar.markdown("---")
 st.sidebar.markdown("### 📋 Documentation")
