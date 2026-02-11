@@ -13,6 +13,22 @@ import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 import config
 
+from pathlib import Path
+
+# Chemin de ton fichier
+file_path = Path("/mount/src/molead/results/gold_standard_20260211_124451.json")
+
+if file_path.exists():
+    with open(file_path, "rb") as f:
+        st.download_button(
+            label="📥 Télécharger le rapport JSON",
+            data=f,
+            file_name=file_path.name,
+            mime="application/json"
+        )
+else:
+    st.error("Fichier non trouvé.")
+
 # Configuration de la page
 st.set_page_config(
     page_title="Gold Test Set Builder - MoLeAd",
